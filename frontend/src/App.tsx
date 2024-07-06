@@ -124,10 +124,9 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("Fetching devices from API...")
+    // fetch devices data from API and set state
     axios.get('http://localhost:3000/devices')
       .then(res => {
-        console.log("API response: ",res.data)
         const devices: devicesData = res.data.devices
         const allBatteries:BatteryDevice[] = devices.batteries
         const currentTransformer:TransformerDevice = devices.transformer

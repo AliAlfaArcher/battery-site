@@ -88,14 +88,14 @@ const BatteryListItem = ({ battery, index, qty, updateQuantity }: BatteryListIte
                 <div className="battQtyInputContainer">
                     <div style={{display: "flex", alignItems: "center", columnGap: "6px" }}>
                         <button type="button" className="battQtyBtn" onClick={onQtyBtnLessClick} disabled={lessBtnDisabled} title="Decrease">
-                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/></svg>
                         </button>
                         <input id={`battQty${battery.id}`} className="battQtyInput" type="text" placeholder="0" value={qty} onChange={onInputChange} onKeyUp={onInputKeyUp} />
                         <button type="button" className="battQtyBtn" onClick={onQtyBtnMoreClick} disabled={moreBtnDisabled} title="Increase">
-                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
                         </button>
                         <button type="button" className="battQtyBtn" onClick={onQtyBtnResetClick} title="Reset">
-                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#810000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="11" stroke="#810000"/><path d="M5 5l14 14"/><path d="M19 5l-14 14"/></svg>
+                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#810000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="11" stroke="#810000"/><path d="M5 5l14 14"/><path d="M19 5l-14 14"/></svg>
                         </button>
                     </div>
                 </div>
