@@ -1,4 +1,4 @@
-import TeslaLogo from '../assets/tesla.svg'
+import TeslaLogo from '/assets/tesla.svg'
 
 const Header = () => {
   return (

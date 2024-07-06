@@ -28,22 +28,27 @@ const ConfigurationSummary = ({ confEstimate }:ConfigurationSummaryProps) => {
                 </div>
                 <div className='summLandArrangement'>
                     <div className="summLayoutTitle">Land Layout</div>
-                    <div className="landArrangement" style={{ maxWidth: `${gridMaxWidth}px`, gridTemplateColumns: gridTemplateColumns}}>
-                        {confEstimate.landLayout.map((row) => {
-                            let currentCol = 1
-                            return (
-                                row.map((devWidth, devIndex) => {
-                                    const colSpan = devWidth / 10
-                                    const thisCol = currentCol
-                                    currentCol += colSpan
-                                    return (
-                                        <div key={devIndex} style={{ gridColumn: `${thisCol} / span ${colSpan}`}} className="landCell">{devWidth}ft</div>
-                                    )}
+                    {confEstimate.energy > 0 ?
+                        <div className="landArrangement" style={{ maxWidth: `${gridMaxWidth}px`, gridTemplateColumns: gridTemplateColumns}}>
+                            {confEstimate.landLayout.map((row) => {
+                                let currentCol = 1
+                                return (
+                                    row.map((devWidth, devIndex) => {
+                                        const colSpan = devWidth / 10
+                                        const thisCol = currentCol
+                                        currentCol += colSpan
+                                        return (
+                                            <div key={devIndex} style={{ gridColumn: `${thisCol} / span ${colSpan}`}} className="landCell">{devWidth}ft</div>
+                                        )}
+                                    )
                                 )
-                            )
-                        })}
-                    </div>
-
+                            })}
+                        </div>
+                    : 
+                        <div className="landArrangementIcon">
+                            <img className="layoutIconImg" src="/assets/Layout_icon.png" alt="Land Layout" />
+                        </div>
+                    }
                 </div>
             </div>
         </div>

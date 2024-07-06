@@ -37,3 +37,8 @@ type ConfigurationEstimate = {
         qty: number;
     }[];
 }
+
+type devicesData = {
+    batteries: BatteryDevice[];
+    transformer: TransformerDevice;
+}

@@ -1,6 +1,5 @@
-import { useState } from 'react'
-
-import jsonData from './assets/data.json'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import Header from './components/Header'
 import BatteryListItem from './components/BatteryListItem'
@@ -8,15 +7,25 @@ import ConfigurationSummary from './components/ConfigurationSummary'
 import TransformerListItem from './components/TransformerListItem'
 
 function App() {
-  // extract unique battery widths from batteries sorted in descending order
-  const uniqueWidths = [...new Set(jsonData.batteries.map(battery => battery.dimensions.width))].sort((a, b) => b - a)
 
-  const [batteries,] = useState<BatteryDevice[]>(jsonData.batteries)
-  const [transformer, setTransformer] = useState<TransformerDevice>({ ...jsonData.transformer, conf_needs: 0 })
-  const [battQty, setBattQty] = useState<number[]>(Array(batteries.length).fill(0))
+  const initTransformer: TransformerDevice = {
+    id: "",
+    name: "",
+    dimensions: { width: 0, depth: 0 },
+    energy: 0,
+    cost: 0,
+    conf_needs: 0
+  }
+
+  const [uniqueWidths, setUniqueWidths] = useState<number[]>([])
+  const [batteries, setBatteries] = useState<BatteryDevice[] | undefined>(undefined)
+  const [transformer, setTransformer] = useState<TransformerDevice>(initTransformer)
+  const [battQty, setBattQty] = useState<number[]>([])
   const [confEstimate, setConfEstimate] = useState<ConfigurationEstimate>({ energy: 0, cost: 0, landSize: { width: 0, depth: 0 }, landLayout: [], deviceList: []})
 
   const calculateSummary = (currBattQty: number[]) => {
+    if (batteries === undefined || transformer === undefined) return
+
     // calculate number of transformers needed
     const transformersNeeded = Math.ceil(currBattQty.reduce((acc, qty) => acc + qty, 0) / 4)
     setTransformer(prevState => ({ ...prevState, conf_needs: transformersNeeded }))
@@ -114,17 +123,39 @@ function App() {
     calculateSummary(newQty)
   }
 
+  useEffect(() => {
+    console.log("Fetching devices from API...")
+    axios.get('http://localhost:3000/devices')
+      .then(res => {
+        console.log("API response: ",res.data)
+        const devices: devicesData = res.data.devices
+        const allBatteries:BatteryDevice[] = devices.batteries
+        const currentTransformer:TransformerDevice = devices.transformer
+        // extract unique battery widths from batteries sorted in descending order
+        const sortedUniqueWidths = [...new Set(allBatteries.map(battery => battery.dimensions.width))].sort((a, b) => b - a)
+        setUniqueWidths(sortedUniqueWidths)
+        setBatteries(allBatteries)
+        setTransformer(currentTransformer)
+        setBattQty(Array(allBatteries.length).fill(0))
+      })
+      .catch(err => console.log(err))
+  }, [])
+
   return (
     <div className="main-wrapper">
 
       <Header />
       <div className="configContainer">
-        <div className="configDeviceList">
-          {batteries.map((battery, index) => (
-            <BatteryListItem key={battery.id} battery={battery} index={index} qty={battQty[index]} updateQuantity={updateQuantity} />
-          ))}
-          <TransformerListItem transformer={transformer} />
-        </div>
+        {batteries === undefined || transformer === undefined ? 
+          <div className="configDevicesLoading">Loading Available Devices...</div> 
+          : 
+          <div className="configDeviceList">
+            {batteries.map((battery, index) => (
+              <BatteryListItem key={battery.id} battery={battery} index={index} qty={battQty[index]} updateQuantity={updateQuantity} />
+            ))}
+            <TransformerListItem transformer={transformer} />
+          </div>
+        }
       </div>
 
       <ConfigurationSummary confEstimate={confEstimate} />

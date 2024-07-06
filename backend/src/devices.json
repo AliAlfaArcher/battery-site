@@ -16,7 +16,7 @@
         {
             "id": "b1",
             "name": "Megapack 2XL",
-            "image": "/src/assets/Tesla_Megapack.jpg",
+            "image": "/assets/Tesla_Megapack.jpg",
             "release_date": "2022",
             "dimensions": {
                 "unit": "ft",
@@ -29,7 +29,7 @@
         {
             "id": "b2",
             "name": "Megapack 2",
-            "image": "/src/assets/Tesla_Megapack.jpg",
+            "image": "/assets/Tesla_Megapack.jpg",
             "release_date": "2021",
             "dimensions": {
                 "unit": "ft",
@@ -42,7 +42,7 @@
         {
             "id": "b3",
             "name": "Megapack",
-            "image": "/src/assets/Tesla_Megapack.jpg",
+            "image": "/assets/Tesla_Megapack.jpg",
             "release_date": "2005",
             "dimensions": {
                 "unit": "ft",
@@ -55,7 +55,7 @@
         {
             "id": "b4",
             "name": "Powerpack",
-            "image": "/src/assets/Tesla_Powerpack.jpg",
+            "image": "/assets/Tesla_Powerpack.jpg",
             "release_date": "2000",
             "dimensions": {
                 "unit": "ft",

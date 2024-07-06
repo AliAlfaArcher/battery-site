@@ -3,6 +3,8 @@ services:
     build: ./frontend
     ports:
       - "8000:8000"
+    extra_hosts:  # adds hostname mappings to the container network interface configuration
+      - "localhost:host-gateway"  # allow nodejs-api to access zitadel via localhost
   backend:
     build: ./backend
     ports:
