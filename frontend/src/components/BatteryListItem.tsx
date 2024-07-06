@@ -1,3 +1,4 @@
+import { useState } from "react"
 interface BatteryListItemProps {
     battery: BatteryDevice, 
     index: number,
@@ -7,20 +8,60 @@ interface BatteryListItemProps {
 
 const BatteryListItem = ({ battery, index, qty, updateQuantity }: BatteryListItemProps) => {
 
+    const [lessBtnDisabled, setLessBtnDisabled] = useState<boolean>(qty === 0)
+    const [moreBtnDisabled, setMoreBtnDisabled] = useState<boolean>(qty === 50)
+
+    const checkButtonStatus = (qty: number) => {
+        if (qty === 0) setLessBtnDisabled(true)
+        if (qty === 50) setMoreBtnDisabled(true)
+        if (qty > 0) setLessBtnDisabled(false)
+        if (qty < 50) setMoreBtnDisabled(false)
+    }
+    
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newQty = parseInt(e.target.value) || 0
+        let newQty = parseInt(e.target.value) || 0
+        if (newQty > 50) {
+            newQty = 50
+        }
+        checkButtonStatus(newQty)
         updateQuantity(index, newQty)
     }
 
     const onInputKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
-            updateQuantity(index, qty + 1)
+            let newQty = qty + 1
+            if (newQty > 50) {
+                newQty = 50
+            }
+            checkButtonStatus(newQty)
+            updateQuantity(index, newQty)
         }
         if (e.key === 'ArrowDown') {
-            if (qty > 0) {
-                updateQuantity(index, qty - 1)
+            const newQty = qty - 1
+            checkButtonStatus(newQty)
+            if (newQty >= 0) {
+                updateQuantity(index, newQty)
             }
         }
+    }
+
+    const onQtyBtnLessClick = () => {
+        if (qty > 0) {
+            updateQuantity(index, qty - 1)
+            checkButtonStatus(qty - 1)
+        }
+    }
+
+    const onQtyBtnMoreClick = () => {
+        if (qty < 50) {
+            updateQuantity(index, qty + 1)
+            checkButtonStatus(qty + 1)
+        }
+    }
+
+    const onQtyBtnResetClick = () => {
+        updateQuantity(index, 0)
+        checkButtonStatus(0)
     }
 
     return (
@@ -43,8 +84,21 @@ const BatteryListItem = ({ battery, index, qty, updateQuantity }: BatteryListIte
                 <img className="battImg" src={battery.image} alt={battery.name} />
             </div>
             <div className='battQtyContainer'>
-                <label htmlFor={`battQty${battery.id}`}> Quantity:</label>
-                <input id={`battQty${battery.id}`} className='battQtyInput' type='input' placeholder='0' value={qty} onChange={onInputChange} onKeyUp={onInputKeyUp} />
+                <label htmlFor={`battQty${battery.id}`}> Quantity: </label>
+                <div className="battQtyInputContainer">
+                    <div style={{display: "flex", alignItems: "center", columnGap: "6px" }}>
+                        <button type="button" className="battQtyBtn" onClick={onQtyBtnLessClick} disabled={lessBtnDisabled} title="Decrease">
+                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                        </button>
+                        <input id={`battQty${battery.id}`} className="battQtyInput" type="text" placeholder="0" value={qty} onChange={onInputChange} onKeyUp={onInputKeyUp} />
+                        <button type="button" className="battQtyBtn" onClick={onQtyBtnMoreClick} disabled={moreBtnDisabled} title="Increase">
+                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        </button>
+                        <button type="button" className="battQtyBtn" onClick={onQtyBtnResetClick} title="Reset">
+                            <svg style={{ flexShrink: "0", width: "14px", height: "14px"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#810000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="11" stroke="#810000"/><path d="M5 5l14 14"/><path d="M19 5l-14 14"/></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ const ConfigurationSummary = ({ confEstimate }:ConfigurationSummaryProps) => {
             <div className="summTitle">Current Configuration Summary</div>
             <div className="summDeviceList">
                 {confEstimate.deviceList.length > 1 ? 
-                    ( confEstimate.deviceList.map((device, index) => ( <div key={index} className="summDevItem">{index?", ":""}<span className="summDevTag">{device.name}</span> x {device.qty}</div> )))
+                    ( confEstimate.deviceList.map((device, index) => ( <div key={index} className="summDevItem"><span className="summDevTag">{device.name}</span><span className="sumDevTagQty"> x {device.qty}</span></div> )))
                 : "Enter battery quantities to see the configuration summary."
                 }
             </div>

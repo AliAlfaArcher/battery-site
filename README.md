@@ -32,7 +32,7 @@ Navigate to http://localhost:8000 to open the web app.
 
 The interface of the app is very simple. It will only require the user to modify the quantity of the different batteries shown. At the bottom of the page is the summary of the configurations which will be updated as changes are done.
 
-To modify the quantity of each battery, the user can enter a number directly into the input box or just select the box and use the up and down arrow to increase or decrease the quantity.
+To modify the quantity of each battery the user can click on the +/- buttons, type a number directly into the input box, or just select the number and use the up and down arrow to increase or decrease the quantity.
 
 ## How It Works
 
