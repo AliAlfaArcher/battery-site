@@ -1,0 +1,68 @@
+{
+    "transformer": {
+        "id": "t1",
+        "name": "Transformer",
+        "release_date": "",
+        "dimensions": {
+            "unit": "ft",
+            "width": 10,
+            "depth": 10
+        },
+        "energy": -0.25,
+        "cost": 10000
+    },
+    "batteries": [
+        {
+            "id": "b1",
+            "name": "Megapack 2XL",
+            "image": "/src/assets/Tesla_Megapack.jpg",
+            "release_date": "2022",
+            "dimensions": {
+                "unit": "ft",
+                "width": 40,
+                "depth": 10
+            },
+            "energy": 4,
+            "cost": 120000
+        },
+        {
+            "id": "b2",
+            "name": "Megapack 2",
+            "image": "/src/assets/Tesla_Megapack.jpg",
+            "release_date": "2021",
+            "dimensions": {
+                "unit": "ft",
+                "width": 30,
+                "depth": 10
+            },
+            "energy": 3,
+            "cost": 80000
+        },
+        {
+            "id": "b3",
+            "name": "Megapack",
+            "image": "/src/assets/Tesla_Megapack.jpg",
+            "release_date": "2005",
+            "dimensions": {
+                "unit": "ft",
+                "width": 30,
+                "depth": 10
+            },
+            "energy": 2,
+            "cost": 50000
+        },
+        {
+            "id": "b4",
+            "name": "Powerpack",
+            "image": "/src/assets/Tesla_Powerpack.jpg",
+            "release_date": "2000",
+            "dimensions": {
+                "unit": "ft",
+                "width": 10,
+                "depth": 10
+            },
+            "energy": 1,
+            "cost": 20000
+        }
+    ]
+}
